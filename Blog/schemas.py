@@ -6,3 +6,8 @@ class Model1(BaseModel):
     body: str
     id: int
     
+class Showmodel(BaseModel):
+    title: str
+    body: str
+    class cofi():
+        orm_mode = True
