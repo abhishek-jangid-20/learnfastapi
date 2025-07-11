@@ -52,8 +52,6 @@ def destroy(id, db:Session=Depends(get_db)):
 
 @app.put('/blog/{id}')
 def upd(id,request: schemas.Model1, db : Session=Depends(get_db)):
-    # Error: blog.update() expects a dictionary of column values, not the request object directly
-    # Should be: blog.update({"title": request.title, "body": request.body})
     blog = db.query(models.Blog).filter(models.Blog.Id==id)
     if not blog.first():
         raise  HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail = f"Blog with id {id} not found")
@@ -63,7 +61,7 @@ def upd(id,request: schemas.Model1, db : Session=Depends(get_db)):
 
 
 
-@app.post('/user')
+@app.post('/user', response_model=schemas.ShowUser)
 def create_user(request : schemas.User, db:Session=Depends(get_db)):
     user = models.User(name=request.name, email=request.email, password=hashing.hash.bcrypt(request.password))
     db.add(user)
