@@ -11,3 +11,8 @@ class Showmodel(BaseModel):
     body: str
     class cofi():
         orm_mode = True
+
+class User(BaseModel):
+    name: str
+    email: str
+    password: str

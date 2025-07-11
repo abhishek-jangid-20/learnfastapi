@@ -6,3 +6,10 @@ class Blog(base):
     Id = Column(Integer,primary_key=True,index=True)
     title = Column(String)
     body = Column(String)
+
+class User(base):
+    __tablename__ = 'Users'
+    Id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    email = Column(String)
+    password = Column(String)

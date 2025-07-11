@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Depends, status, Response, HTTPException
-from . import schemas, models
+from . import schemas, models,hashing
 from .database import engine, sessionlocal
 from sqlalchemy.orm import Session
+
 
 app = FastAPI()
 
@@ -59,3 +60,13 @@ def upd(id,request: schemas.Model1, db : Session=Depends(get_db)):
     blog.update({"title": request.title, "body": request.body}) # This line will raise an error
     db.commit()
     return 'Updated'
+
+
+
+@app.post('/user')
+def create_user(request : schemas.User, db:Session=Depends(get_db)):
+    user = models.User(name=request.name, email=request.email, password=hashing.hash.bcrypt(request.password))
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
