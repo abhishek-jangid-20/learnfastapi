@@ -1,16 +1,14 @@
 from pydantic import BaseModel
+from typing import List
 
 
 class Model1(BaseModel):
     title: str
     body: str
-    id: int
-    
-class Showmodel(BaseModel):
-    title: str
-    body: str
+    Id: int
     class cofi():
         orm_mode = True
+
 
 class User(BaseModel):
     name: str
@@ -20,6 +18,14 @@ class User(BaseModel):
 class ShowUser(BaseModel):
     name: str
     email: str
+    blogs : List[Model1] = []
     class cofi():
         orm_mode = True
+
     
+class Showmodel(BaseModel):
+    title: str
+    body: str
+    creator: ShowUser
+    class cofi():
+        orm_mode = True
