@@ -29,3 +29,7 @@ class Showmodel(BaseModel):
     creator: ShowUser
     class cofi():
         orm_mode = True
+
+class Login(BaseModel):
+    username: str
+    password: str
