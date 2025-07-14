@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 
 class Model1(BaseModel):
@@ -33,3 +33,10 @@ class Showmodel(BaseModel):
 class Login(BaseModel):
     username: str
     password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class Tokendata(BaseModel):
+    email: Optional[str] = None

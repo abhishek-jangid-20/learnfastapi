@@ -4,6 +4,7 @@ from .. import models, schemas
 from .. import database
 from sqlalchemy.orm import Session
 from ..repository import blog
+from . import oauth
 
 router = APIRouter(
     prefix='/blog',
@@ -20,7 +21,7 @@ def create_blog(request: schemas.Model1, db : Session = Depends(get_db)):
     return blog.create(request, db)
 
 @router.get('/')
-def all(db: Session=Depends(get_db)):
+def all(db: Session=Depends(get_db),get_current_user:schemas.User = Depends(oauth.get_current_user)):
     blogs = db.query(models.Blog).all()
     return blogs
 
